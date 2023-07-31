@@ -16,7 +16,7 @@ WHERE `cfu` > 10;
 
 SELECT * 
 FROM `students`
-WHERE YEAR(FROM_DAYS(DATEDIFF(CURRENT_DATE, `date_of_birth`))) > 30;
+WHERE (YEAR(CURDATE()) - YEAR(`date_of_birth`)) > 30;
 
 
 --4. Selezionare tutti i corsi del primo semestre del primo anno di un qualsiasi corso di laurea (286)
@@ -76,3 +76,20 @@ GROUP BY `exam_id`;
 SELECT `department_id`, COUNT(*) as degrees_number
 FROM `degrees`
 GROUP BY `department_id`;
+
+-- QUERY CON JOIN
+
+-- 1. Selezionare tutti gli studenti iscritti al Corso di Laurea in Economia
+
+SELECT S.`name` AS Nome, S.`surname` AS Cognome
+FROM `students` AS S 
+JOIN `degrees` AS D 
+ON S.`degree_id` = D.`id`
+WHERE D.`name` = 'Corso di Laurea in Economia'
+
+-- 2. Selezionare tutti i Corsi di Laurea del Dipartimento di Neuroscienze
+-- 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
+-- 4. Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e nome
+-- 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+-- 6. Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
+-- 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per superare ciascuno dei suoi esami
